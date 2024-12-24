@@ -5,6 +5,7 @@ import numpy as np
 import heatmap_funcs
 import pandas as pd
 import yfinance as yf
+import re
 
 
 st.set_page_config(layout='wide', initial_sidebar_state='expanded')
@@ -15,16 +16,24 @@ st.sidebar.subheader("Stock Price Source")
 use_live_data = st.sidebar.toggle("Fetch Live Data (Yahoo Finance)",
                                 value=False)
 
+
 if use_live_data:
     stock_ticker = st.sidebar.text_input("Stock Ticker", value="AAPL")
-    try:
-        stock_data = yf.Ticker(stock_ticker)
-        live_price = stock_data.history(period="1d")['Close'].iloc[-1]
-        st.sidebar.write(f"Live Spot Price: ${live_price:.2f}")
-        S = live_price
-    except Exception as e:
-        st.sidebar.error(f"Error fetching data for {stock_ticker}: {e}")
-        S = st.sidebar.number_input("Fallback Spot Price", value=100.0, step=0.01)
+    if bool(re.match(r"^[A-Za-z0-9-.]+$", stock_ticker)):
+        try:
+            stock_data = yf.Ticker(stock_ticker)
+            live_price = stock_data.history(period="1d")['Close'].iloc[-1]
+            st.sidebar.write(f"Live Spot Price: ${live_price:.2f}")
+            S = live_price
+        except IndexError:
+            st.sidebar.error(f"No price data available for ticker '{stock_ticker}'. Please check the ticker.")
+            S = st.sidebar.number_input("Spot Price", value=100.0, step=0.01)
+        except Exception as e:
+            st.sidebar.error(f"Error fetching data for {stock_ticker}: {e}")
+            S = st.sidebar.number_input("Spot Price", value=100.0, step=0.01)
+    else:
+        st.sidebar.error(f"Invalid ticker format: {stock_ticker}")
+        S = st.sidebar.number_input("Spot Price", value=100.0, step=0.01)
 else:
     S = st.sidebar.number_input("Spot Price", value=100.0, step=0.01)
 
@@ -34,10 +43,8 @@ T = st.sidebar.number_input("Time to Maturity (in years)", value=1.0, step=0.25)
 use_gov_bond_rate = st.sidebar.toggle("Use Government Bond Rate for "
                                       "Risk-Free Rate", value=True)
 if use_gov_bond_rate:
-    temp_option = option.Option(S, K, T, 0.0001, 0.0001, "call")
-
     try:
-        r = temp_option.fetch_risk_free_rate(T) * 100  # Convert to percentage
+        r = option.Option.fetch_risk_free_rate(T) * 100
         st.sidebar.write(f"Fetched government rate: {r:.2f}%")
     except Exception as e:
         st.sidebar.error(f"Error fetching rate: {e}")
@@ -145,10 +152,10 @@ num_contracts = st.sidebar.number_input("Number of Contracts", value=1, step=1)
 purchase_price = st.sidebar.number_input("Purchase Price per Contract", value=call_price, step=0.01)
 pnl = num_contracts * (call_price - purchase_price)
 
-range_offset = 50  # Adjustable range offset for visualization
+
 num_points = 11    # Number of points
-S_min, S_max = S - range_offset, S + range_offset
-K_min, K_max = K - range_offset, K + range_offset
+S_min, S_max = S - (S/2), S + (S/2)
+K_min, K_max = K - (K/2), K + (K/2)
 
 S_range = np.linspace(S_min, S_max, num_points)
 K_range = np.linspace(K_min, K_max, num_points)
