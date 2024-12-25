@@ -53,10 +53,9 @@ def dynamic_annotation_format(value):
 def annotate_heatmap(data, ax, fmt_func):
     """
     annotate_heatmap integrates custom formatting for a heatmap
-    :param data:
-    :param ax:
-    :param fmt_func:
-    :return:
+    :param data: numpy.ndarray containing the data to be annotated
+    :param ax: matplotlib.axes.Axes object on which the heatmap is drawn
+    :param fmt_func: function that returns a formatted string
     """
     for i in range(data.shape[0]):
         for j in range(data.shape[1]):
