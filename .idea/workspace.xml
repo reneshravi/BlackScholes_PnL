@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1d7e2b48-14b6-4599-8240-d336bd94a1c3" name="Changes" comment="Uploading requirements for app">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/heatmap_funcs.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/heatmap_funcs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/option.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/option.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/risk_free_rate_fetcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/risk_free_rate_fetcher.py" afterDir="false" />
-    </list>
+    <list default="true" id="1d7e2b48-14b6-4599-8240-d336bd94a1c3" name="Changes" comment="Further Documentation" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -198,7 +193,39 @@
       <option name="project" value="LOCAL" />
       <updated>1735081677560</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Further Documentation">
+      <option name="closed" value="true" />
+      <created>1735087792356</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1735087792356</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Further Documentation">
+      <option name="closed" value="true" />
+      <created>1735087851141</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1735087851141</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Further Documentation">
+      <option name="closed" value="true" />
+      <created>1735087905972</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1735087905972</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Further Documentation">
+      <option name="closed" value="true" />
+      <created>1735088007712</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1735088007712</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -206,7 +233,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -215,6 +254,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Uploading to github" />
     <MESSAGE value="Uploading requirements for app" />
-    <option name="LAST_COMMIT_MESSAGE" value="Uploading requirements for app" />
+    <MESSAGE value="Further Documentation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Further Documentation" />
   </component>
 </project>
