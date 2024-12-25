@@ -1,3 +1,11 @@
+"""
+File: option.py
+Description: Option class that generates an option with a variety of
+functions
+    - Calculate call or put Black Scholes Price
+    - Calculate option greeks (delta, gamma, vega, theta, rho)
+Created by: Renesh Ravi
+"""
 from scipy.stats import norm
 from math import log, sqrt, exp
 
