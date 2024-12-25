@@ -1,7 +1,13 @@
+"""
+File: option.py
+Description: Option class that generates an option with a variety of
+functions
+    - Calculate call or put Black Scholes Price
+    - Calculate option greeks (delta, gamma, vega, theta, rho)
+Created by: Renesh Ravi
+"""
 from scipy.stats import norm
 from math import log, sqrt, exp
-import requests
-
 
 class Option:
     def __init__(self, S, K, T, r, vol, option_type="call"):
@@ -83,6 +89,10 @@ class Option:
         return self.S * norm.pdf(self.d1) * sqrt(self.T)
 
     def get_theta(self):
+        """
+        Calculates theta value of an Option
+        :return: numpy.float theta value of an Option
+        """
         if self.option_type == "call":
             return ((- self.S * norm.pdf(self.d1) * self.vol) / (2 * sqrt(self.T))) - self.r * self.K * exp(
                 -self.r * self.T) * norm.cdf(self.d2)
@@ -91,12 +101,20 @@ class Option:
                 -self.r * self.T) * norm.cdf(-self.d2)
 
     def get_rho(self):
+        """
+        Calculates rho value of an Option
+        :return: numpy.float rho value of an Option
+        """
         if self.option_type == "call":
             return self.K * self.T * exp(- self.r * self.T) * norm.cdf(self.d2)
         else:
             return -(self.K * self.T * exp(- self.r * self.T) * norm.cdf(-1 * self.d2))
 
     def get_greeks(self):
+        """
+        Calculates and complies all the calculated greeks
+        :return: dictionary with option greeks as keys and their respective values
+        """
         return {"Delta": self.get_delta(),
                 "Gamma": self.get_gamma(),
                 "Vega": self.get_vega(),
