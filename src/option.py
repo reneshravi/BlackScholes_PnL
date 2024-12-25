@@ -26,14 +26,26 @@ class Option:
         self.d2 = self.get_d2()
 
     def get_d1(self):
+        """
+        Calculates the d1 value in the black scholes model
+        :return: float value of d1
+        """
         return (log(self.S / self.K) + (
                 self.r + 0.5 * self.vol ** 2) * self.T) / (
                 self.vol * sqrt(self.T))
 
     def get_d2(self):
+        """
+        Calculates the d2 value in the black scholes model
+        :return: float value of d1
+        """
         return self.get_d1() - self.vol * sqrt(self.T)
 
     def black_scholes_price(self):
+        """
+        Calculates call or put price for the Option object
+        :return: float value of black scholes price
+        """
         if self.option_type == "call":
             price = self.S * norm.cdf(self.d1) - self.K * exp(
                 -self.r * self.T) * norm.cdf(self.d2)
@@ -46,16 +58,28 @@ class Option:
         return price
 
     def get_delta(self):
-
+        """
+        Calculates delta value of the Option -> how much option's price
+        changes for every $1 move in spot price
+        :return: numpy.float delta value of an Option
+        """
         if self.option_type == "call":
             return norm.cdf(self.d1)
         else:
             return norm.cdf(self.d1) - 1
 
     def get_gamma(self):
+        """
+        Calculates gamma value of an Option -> change in option's delta
+        :return: numpy.float gamma value of an Option
+        """
         return (norm.pdf(self.d1)) / (self.S * self.vol * sqrt(self.T))
 
     def get_vega(self):
+        """
+        Calculates vega value of an Option
+        :return: numpy.float vega value of an Option
+        """
         return self.S * norm.pdf(self.d1) * sqrt(self.T)
 
     def get_theta(self):
@@ -79,28 +103,3 @@ class Option:
                 "Theta": self.get_theta(),
                 "Rho": self.get_rho(),
                 }
-
-    @staticmethod
-    def fetch_risk_free_rate(T):
-        maturities = {0.25: "DGS3MO",
-                      0.5: "DGS6MO",
-                      1: "DGS1",
-                      2: "DGS2",
-                      5: "DGS5",
-                      10: "DGS10"
-                      }
-
-        closest_maturity = min(maturities.keys(), key=lambda x: abs(x -
-                                                                    T))
-        series_id = maturities[closest_maturity]
-        api_key = "246b57b6f48a3fe94b2e8b2e707df8af"
-        url = f"https://api.stlouisfed.org/fred/series/observations?series_id={series_id}&api_key={api_key}&file_type=json"
-
-        response = requests.get(url)
-        data = response.json()
-        latest_rate = float(data['observations'][-1]['value']) / 100  # Convert to decimal
-        return latest_rate
-
-    @staticmethod
-    def is_close(rate1, rate2, to1=1e-4):
-        return abs(rate1 - rate2) < to1
