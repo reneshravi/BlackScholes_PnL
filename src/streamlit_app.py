@@ -57,7 +57,7 @@ if use_gov_bond_rate:
         st.sidebar.write(f"Fetched government rate: {r:.2f}%")
     except Exception as e:
         st.sidebar.error(f"Error fetching rate: {e}")
-        r = 0.05  # Default fallback rate
+        r = 5.00  # Default fallback rate
 else:
     r = st.sidebar.number_input("Input Risk-Free Rate (in percent)",
                                 value=5.00, step=0.01)
