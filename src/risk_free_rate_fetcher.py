@@ -14,9 +14,8 @@ def get_api_key():
     """
     # First try to get from Streamlit secrets
     try:
-        return st.secrets["fred_api_key"]
+        return st.secrets["api_keys"]["fred"]
     except:
-        # If not in Streamlit environment, try local .env
         load_dotenv()
         api_key = os.getenv("api_key")
         if not api_key:
