@@ -24,7 +24,7 @@ This project is a Streamlit-based web application that calculates the prices and
   - Calculate and display Delta, Gamma, Vega, Theta, and Rho for both call and put options.
 
 - **Data Export**:
-  - Download PnL data for both call and put options in CSV format.
+  - Download PnL data for both call and put options in CSV format for further data manipulation.
 
 ---
 
@@ -42,11 +42,15 @@ This project is a Streamlit-based web application that calculates the prices and
    ```
 
 3. Set up environment variables:
-   - Create a `.env` file in the project directory with the following content:
+   - Option A: Create a `.env` file in the project directory with the following content:
      ```
      api_key=YOUR_FRED_API_KEY
      ```
-
+    - Option B: Create a `secrets.toml` file in the .streamlit directory with the following content:
+     ```
+     [api_keys]
+    fred = "YOUR_FRED_API_KEY"
+     ```
 4. Run the application:
    ```bash
    streamlit run streamlit_app.py
@@ -56,13 +60,13 @@ This project is a Streamlit-based web application that calculates the prices and
 
 ## Usage
 
-1. Open the app in your browser (https://blackscholespnl.streamlit.app/).
+1. Open the app in your browser.
 2. Use the sidebar to input parameters:
    - Spot Price: Enter manually or fetch live data.
    - Strike Price, Time to Maturity, Risk-Free Rate, and Volatility.
    - Specify the number of contracts and purchase price for PnL analysis.
 3. View calculated option prices, Greeks, and PnL heatmaps.
-4. Download PnL data in CSV format using the sidebar.
+4. Download PnL data in CSV format using the sidebar for further data manipulation.
 
 ---
 
@@ -79,7 +83,8 @@ Black-Scholes-Option-Pricing-App/
 │   ├── option_test.py              # Unit tests for the Option class
 │   ├── heatmap_funcs_test.py       # Unit tests for heatmaps
 │   └── rfr_fetcher_test.py         # Unit tests for risk-free rate fetching
-│
+├──.streamlit/
+│   └── secrets.toml                # TOML file containing api keys
 ├── requirements.txt                # Python dependencies
 ├── README.md                       # Project documentation
 └── .env                            # Environment variables
